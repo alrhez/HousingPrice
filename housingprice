@@ -1,0 +1,147 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+data = pd.read_csv('housingPrice.csv')
+df = pd.DataFrame(data)
+
+# # #   Display the first few rows of the dataset
+# # print(data.head())
+
+# mendeskripsikan data dengan
+# print(data.describe())
+
+# #handling missing values
+# print (data.isnull().values.any())
+
+# print (data.isnull().sum())
+
+# # 3- Figure out why the data is missing The total number of bedrooms has an empty value.**
+# print (data.total_bedrooms.isnull().any())
+
+# # Eliminating all extra variables
+# print (data.dropna(inplace = True))
+# print (data.shape)
+
+
+# Membuat DataFrame dari data
+# df = pd.DataFrame(data)
+
+# # # Menampilkan informasi dasar tentang dataset
+# print(df.info())
+
+# # Menampilkan beberapa baris pertama dari dataset
+# print(df.head())
+
+# # Visualisasi data menggunakan pairplot
+# sns.pairplot(df)
+# plt.show()
+
+# # Visualisasi distribusi median_income
+# plt.figure(figsize=(10, 6))
+# sns.histplot(df['median_income'], bins=30, kde=True)
+# plt.title('Distribution of Median Income')
+# plt.xlabel('Median Income')
+# plt.ylabel('Frequency')
+# plt.show()
+
+# # Visualisasi scatter plot longitude dan latitude (housing by price location)
+# plt.figure(figsize=(12, 8))
+# sns.scatterplot(x='longitude', y='latitude', data=df, hue='median_house_value', palette='viridis', size='population', sizes=(10, 200))
+# plt.title('Housing Prices by Location')
+# plt.show()
+
+# chart median house value
+# sns.histplot(data.median_house_value)
+# plt.show()
+
+# chart housing median age
+# sns.histplot(data.housing_median_age)
+# plt.show()
+
+# tampilin semua kolom
+# data.hist(figsize=(15,10))
+# plt.show()
+
+# boxplot housing median age
+# plt.figure(figsize=(10, 6))
+# plt.boxplot(data['housing_median_age'], vert=False)
+# plt.title('Boxplot of Housing Median Age')
+# plt.xlabel('Housing Median Age')
+# plt.show()
+
+# Boxplot of housing_median_age
+# plt.figure(figsize=(10, 6))
+# plt.boxplot(data['latitude'], vert=False)
+# plt.title('Boxplot of latitude')
+# plt.xlabel('latitude')
+# plt.show()
+
+# Boxplot of housing_median_age
+# plt.figure(figsize=(10, 6))
+# plt.boxplot(data['longitude'], vert=False)
+# plt.title('Boxplot of longitude')
+# plt.xlabel('longitude')
+# plt.show()
+
+# plt.figure(figsize=(10, 6))
+# plt.boxplot(data['median_house_value'], vert=False)
+# plt.title('Boxplot of median_house_value')
+# plt.xlabel('median_house_value')
+# plt.show()
+
+# Q1 = np.percentile(data['median_house_value'], 25, method='midpoint')
+# Q3 = np.percentile(data['median_house_value'], 75, method='midpoint')
+# IQR = Q3 - Q1
+# print(IQR)
+
+# Q1 = np.percentile(data['median_house_value'], 25, method='midpoint')
+# Q3 = np.percentile(data['median_house_value'], 75, method='midpoint')
+# IQR = Q3 - Q1
+# upper = Q3 + 1.5*IQR
+# lower = Q1 - 1.5*IQR
+# print(upper,lower)
+
+# # Above Upper bound
+# Q1 = np.percentile(data['median_house_value'], 25, method='midpoint')
+# Q3 = np.percentile(data['median_house_value'], 75, method='midpoint')
+# IQR = Q3 - Q1
+# upper = Q3 + 1.5*IQR
+# lower = Q1 - 1.5*IQR
+# upper=Q3+1.5*IQR
+# upper_array=list(np.where(data['median_house_value']>=upper))
+# print("upper Bound:",upper)
+# print(sum(upper_array))
+
+# #Below Lower bound
+# Q1 = np.percentile(data['median_house_value'], 25, method='midpoint')
+# Q3 = np.percentile(data['median_house_value'], 75, method='midpoint')
+# IQR = Q3 - Q1
+# lower=Q1-1.5*IQR
+# lower_array=list(np.where(data['median_house_value']<=lower))
+# print("Lower Bound:",lower)
+# print(sum(lower_array))
+
+# print("Old Shape: ", data.shape)
+
+# # Removing the outliers
+# data.drop(index=upper_array[0], inplace=True)
+# data.drop(index=lower_array[0], inplace=True)
+# # Print the new shape of the DataFrame
+# print("New Shape: ", data.shape)
+
+# Q1 = np.percentile(data['median_house_value'], 25, method='midpoint')
+# Q3 = np.percentile(data['median_house_value'], 75, method='midpoint')
+
+# upper_array=list(np.where(data['median_house_value']>=upper))
+# lower_array=list(np.where(data['median_house_value']<=lower))
+# data.drop(index=upper_array[0], inplace=True)
+# data.drop(index=lower_array[0], inplace=True)
+
+# from pandas.plotting import scatter_matrix
+
+# attributes = ['median_house_value', 'median_income',
+#              'total_rooms', 'housing_median_age']
+# scatter_matrix(data[attributes], figsize=(12,8))
+# plt.show()
